@@ -1,0 +1,28 @@
+.btn {
+  background: transparent;
+  border: none;
+  text-shadow: $shadow;
+  transition: color 0.3s ease;
+}
+
+.btn-play {
+  color: $pink;
+  font-size: 3rem;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    color: $darkerpink;
+  }
+}
+
+.btn-level {
+  color: $navy;
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    color: $lighternavy;
+  }
+}

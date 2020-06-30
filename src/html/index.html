@@ -7,7 +7,30 @@
   </head>
   <body>
     <div class="container">
-      <button class="btn btn--play">play</button>
+      <button class="btn btn-play">play</button>
+      <div class="level-select">
+        <h1 class="level-select__title">select level</h1>
+        <div class="level-select__levels">
+          <button data-level="easy" class="btn btn-level">easy</button>
+          <button data-level="medium" class="btn btn-level">medium</button>
+          <button data-level="hard" class="btn btn-level">hard</button>
+        </div>
+      </div>
+
+      <div class="game-summary">
+        <div class="properties">
+          <p class="game-summary__property">
+            time:
+            <span data-content="time" class="game-summary__data">00:00</span>
+          </p>
+          <p class="game-summary__property">
+            score:
+            <span data-content="score" class="game-summary__data">0</span>
+          </p>
+        </div>
+        <span class="game-cancel">x</span>
+      </div>
+      <div class="game-board"></div>
     </div>
   </body>
 </html>

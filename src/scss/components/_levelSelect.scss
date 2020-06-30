@@ -1,0 +1,18 @@
+.level-select {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  display: none;
+
+  &__title {
+    color: $pink;
+    text-shadow: $shadow;
+    font-size: 3rem;
+  }
+
+  &__levels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

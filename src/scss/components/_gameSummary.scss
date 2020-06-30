@@ -1,0 +1,34 @@
+.game-summary {
+  display: flex;
+  width: 500px;
+  justify-content: space-between;
+  display: none;
+
+  &__property {
+    font-size: 1.5rem;
+    color: $navy;
+  }
+
+  &__data {
+    color: $pink;
+  }
+
+  &__property,
+  &__data {
+    text-shadow: $shadow;
+  }
+
+  &__property:last-child {
+    margin-left: 1em;
+  }
+}
+
+.properties {
+  display: flex;
+  flex: 1 0 auto;
+}
+
+.game-cancel {
+  font-size: 1.5rem;
+  color: $navy;
+}
