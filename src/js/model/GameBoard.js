@@ -10,6 +10,6 @@ export class GameBoard {
   renderGameBoard() {
     this.clearContainer();
     DOMelements.gameSummary.style.display = "flex";
-    DOMelements.gameBoard.style.display = "block";
+    DOMelements.gameBoard.style.display = "flex";
   }
 }

@@ -5,4 +5,13 @@
   box-shadow: $shadow;
   border-radius: 5px;
   display: none;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.counter {
+  color: $pink;
+  font-size: 3rem;
+  text-shadow: $shadow;
 }
