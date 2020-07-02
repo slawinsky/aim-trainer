@@ -7,4 +7,5 @@ export const DOMelements = {
   gameTime: document.querySelector("[data-content='time'"),
   gameScore: document.querySelector("[data-content='score'"),
   gameBoard: document.querySelector(".game-board"),
+  target: document.querySelector(".target"),
 };

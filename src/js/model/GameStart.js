@@ -1,4 +1,7 @@
-import { DOMelements } from "./../base";
+import { DOMelements } from "../base";
+import { GameControler } from "./GameControler";
+
+const gameControler = new GameControler();
 
 export class GameStart {
   constructor() {
@@ -22,6 +25,8 @@ export class GameStart {
     this.gameCountdown();
     setTimeout(() => {
       DOMelements.gameBoard.lastChild.remove();
+      DOMelements.gameBoard.style.display = "block";
+      gameControler.gameProperties();
     }, 5000);
   }
 }
