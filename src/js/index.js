@@ -4,7 +4,6 @@ import { DOMelements } from "./base";
 import { LevelSelect } from "./model/LevelSelect";
 import { GameBoard } from "./model/GameBoard";
 import { GameStart } from "./model/GameStart";
-import { GameControler } from "./model/GameControler";
 
 const init = () => {
   const levelSelect = new LevelSelect();

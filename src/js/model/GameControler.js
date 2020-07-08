@@ -1,11 +1,13 @@
 import { DOMelements } from "./../base";
 import { state } from "./../state";
 
+import { scoreUpdate } from "./../view/summaryView";
+
 export class GameControler {
   constructor() {
     this.gameLevel = state.level;
     this.frequency = null;
-    this.targets = [];
+    this.target = null;
   }
 
   gameProperties() {
@@ -22,20 +24,31 @@ export class GameControler {
     }
 
     this.targetCreate();
+    this.targetMiss();
   }
 
-  targetHit() {
-    this.targets.forEach((target) =>
-      target.addEventListener("click", () => {
-        target.style.display = "none";
-      })
-    );
+  targetHide() {
+    const timeout = setTimeout(() => {
+      this.target.remove();
+    }, this.frequency - 5);
+
+    this.target.onclick = () => {
+      clearTimeout(timeout);
+      this.target.remove();
+      state.score++;
+      scoreUpdate();
+    };
+  }
+
+  targetMiss() {
+    DOMelements.gameBoard.addEventListener("click", (e) => {
+      e.target == DOMelements.gameBoard && state.misses++;
+    });
   }
 
   targetCollect() {
-    this.targets = [...document.querySelectorAll(".target")];
-
-    this.targetHit();
+    this.target = document.querySelector(".target");
+    this.targetHide();
   }
 
   targetCreate() {
@@ -45,6 +58,8 @@ export class GameControler {
     const interval = setInterval(() => {
       const offsetX = Math.floor(Math.random() * (gameBoardWidth - 25));
       const offsetY = Math.floor(Math.random() * (gameBoardHeight - 25));
+
+      state.misses == 3 && clearInterval(interval);
 
       const target = document.createElement("div");
       target.classList.add("target");
