@@ -1,13 +1,32 @@
 import { DOMelements } from "./../base";
 import { state } from "./../state";
 
-import { scoreUpdate } from "./../view/summaryView";
+import { scoreUpdate, timeUpdate } from "./../view/summaryView";
 
 export class GameControler {
   constructor() {
     this.gameLevel = state.level;
     this.frequency = null;
     this.target = null;
+  }
+
+  gameTime() {
+    let seconds = 0;
+    let minutes = 0;
+
+    setInterval(() => {
+      if (seconds < 59) {
+        seconds++;
+      } else if (seconds == 59) {
+        minutes++;
+        seconds = 0;
+      }
+
+      state.time = `${minutes < 10 ? `0${minutes}` : minutes}:${
+        seconds < 10 ? `0${seconds}` : seconds
+      }`;
+      timeUpdate();
+    }, 1000);
   }
 
   gameProperties() {
@@ -23,6 +42,7 @@ export class GameControler {
         break;
     }
 
+    this.gameTime();
     this.targetCreate();
     this.targetMiss();
   }
@@ -56,10 +76,10 @@ export class GameControler {
     const gameBoardHeight = DOMelements.gameBoard.clientHeight;
 
     const interval = setInterval(() => {
+      state.misses == 3 && clearInterval(interval);
+
       const offsetX = Math.floor(Math.random() * (gameBoardWidth - 25));
       const offsetY = Math.floor(Math.random() * (gameBoardHeight - 25));
-
-      state.misses == 3 && clearInterval(interval);
 
       const target = document.createElement("div");
       target.classList.add("target");
