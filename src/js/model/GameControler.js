@@ -5,7 +5,6 @@ import { scoreUpdate, timeUpdate } from "./../view/summaryView";
 
 export class GameControler {
   constructor() {
-    this.gameLevel = state.level;
     this.frequency = null;
     this.target = null;
   }
@@ -44,21 +43,20 @@ export class GameControler {
 
     this.gameTime();
     this.targetCreate();
-    this.targetMiss();
   }
 
-  targetHide() {
-    const timeout = setTimeout(() => {
-      this.target.remove();
-    }, this.frequency - 5);
-
-    this.target.onclick = () => {
-      clearTimeout(timeout);
-      this.target.remove();
-      state.score++;
-      scoreUpdate();
-    };
+  targetRemove() {
+    this.target ? this.target.remove() : null;
   }
+
+  targetHit(timeout) {
+    console.log("hit");
+    this.targetRemove();
+    state.score++;
+    scoreUpdate();
+  }
+
+  targetAction() {}
 
   targetMiss() {
     DOMelements.gameBoard.addEventListener("click", (e) => {
@@ -66,28 +64,34 @@ export class GameControler {
     });
   }
 
-  targetCollect() {
-    this.target = document.querySelector(".target");
-    this.targetHide();
-  }
-
   targetCreate() {
     const gameBoardWidth = DOMelements.gameBoard.clientWidth;
     const gameBoardHeight = DOMelements.gameBoard.clientHeight;
 
     const interval = setInterval(() => {
-      state.misses == 3 && clearInterval(interval);
+      if (state.misses == 3) {
+        clearInterval(interval);
+      } else {
+        this.targetRemove();
 
-      const offsetX = Math.floor(Math.random() * (gameBoardWidth - 25));
-      const offsetY = Math.floor(Math.random() * (gameBoardHeight - 25));
+        const offsetX = Math.floor(Math.random() * (gameBoardWidth - 25));
+        const offsetY = Math.floor(Math.random() * (gameBoardHeight - 25));
 
-      const target = document.createElement("div");
-      target.classList.add("target");
+        const target = document.createElement("div");
+        target.classList.add("target");
 
-      target.style = `left: ${offsetX}px; top: ${offsetY}px;`;
+        target.style = `left: ${offsetX}px; top: ${offsetY}px;`;
 
-      DOMelements.gameBoard.appendChild(target);
-      this.targetCollect();
+        DOMelements.gameBoard.appendChild(target);
+
+        this.target = document.querySelector(".target");
+
+        this.target.onclick = () => {
+          this.targetHit();
+        };
+      }
     }, this.frequency);
+
+    this.targetMiss();
   }
 }
