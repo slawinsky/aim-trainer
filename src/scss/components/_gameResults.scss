@@ -1,0 +1,16 @@
+.game-results {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__score {
+    font-size: 3rem;
+    color: $pink;
+    text-shadow: $shadow;
+  }
+
+  &__data {
+    color: $navy;
+  }
+}

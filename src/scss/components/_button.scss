@@ -2,13 +2,13 @@
   background: transparent;
   border: none;
   text-shadow: $shadow;
+  cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .btn-play {
   color: $pink;
   font-size: 3rem;
-  cursor: pointer;
 
   &:focus,
   &:hover {
@@ -19,8 +19,15 @@
 .btn-level {
   color: $navy;
   font-size: 1.5rem;
-  cursor: pointer;
+}
 
+.btn-reset {
+  color: $navy;
+  font-size: 1.125rem;
+}
+
+.btn-level,
+.btn-reset {
   &:focus,
   &:hover {
     color: $lighternavy;

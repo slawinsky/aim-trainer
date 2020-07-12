@@ -8,3 +8,7 @@ export function scoreUpdate() {
 export function timeUpdate() {
   DOMelements.gameTime.textContent = state.time;
 }
+
+export function displayPoints() {
+  DOMelements.gamePoints.textContent = state.score;
+}

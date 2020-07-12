@@ -3,7 +3,6 @@ import { state } from "../state";
 
 export class LevelSelect {
   constructor() {
-    this.gameLevel = state.level;
     this.selectLevel();
   }
 

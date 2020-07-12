@@ -2,6 +2,9 @@ import { DOMelements } from "./../base";
 import { state } from "./../state";
 
 import { scoreUpdate, timeUpdate } from "./../view/summaryView";
+import { GameEnd } from "./GameEnd";
+
+const gameEnd = new GameEnd();
 
 export class GameControler {
   constructor() {
@@ -46,17 +49,14 @@ export class GameControler {
   }
 
   targetRemove() {
-    this.target ? this.target.remove() : null;
+    this.target && this.target.remove();
   }
 
-  targetHit(timeout) {
-    console.log("hit");
+  targetHit() {
     this.targetRemove();
     state.score++;
     scoreUpdate();
   }
-
-  targetAction() {}
 
   targetMiss() {
     DOMelements.gameBoard.addEventListener("click", (e) => {
@@ -71,6 +71,7 @@ export class GameControler {
     const interval = setInterval(() => {
       if (state.misses == 3) {
         clearInterval(interval);
+        gameEnd.renderResultsBoard();
       } else {
         this.targetRemove();
 
