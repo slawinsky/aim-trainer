@@ -1,6 +1,8 @@
 import { DOMelements } from "../base";
 import { GameControler } from "./GameControler";
 
+import { state } from "./../state";
+
 const gameControler = new GameControler();
 
 export class GameStart {

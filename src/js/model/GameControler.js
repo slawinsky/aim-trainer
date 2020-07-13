@@ -10,13 +10,13 @@ export class GameControler {
   constructor() {
     this.frequency = null;
     this.target = null;
+    this.isGameActive = false;
   }
 
   gameTime() {
     let seconds = 0;
     let minutes = 0;
-
-    setInterval(() => {
+    const timer = setInterval(() => {
       if (seconds < 59) {
         seconds++;
       } else if (seconds == 59) {
@@ -27,6 +27,7 @@ export class GameControler {
       state.time = `${minutes < 10 ? `0${minutes}` : minutes}:${
         seconds < 10 ? `0${seconds}` : seconds
       }`;
+      !this.isGameActive && clearInterval(timer);
       timeUpdate();
     }, 1000);
   }
@@ -59,9 +60,7 @@ export class GameControler {
   }
 
   targetMiss() {
-    DOMelements.gameBoard.addEventListener("click", (e) => {
-      e.target == DOMelements.gameBoard && state.misses++;
-    });
+    state.misses++;
   }
 
   targetCreate() {
@@ -70,7 +69,9 @@ export class GameControler {
 
     const interval = setInterval(() => {
       if (state.misses == 3) {
+        this.isGameActive = false;
         clearInterval(interval);
+        this.targetRemove();
         gameEnd.renderResultsBoard();
       } else {
         this.targetRemove();
@@ -87,12 +88,14 @@ export class GameControler {
 
         this.target = document.querySelector(".target");
 
+        DOMelements.gameBoard.onclick = (e) => {
+          e.target == DOMelements.gameBoard && this.targetMiss();
+        };
+
         this.target.onclick = () => {
           this.targetHit();
         };
       }
     }, this.frequency);
-
-    this.targetMiss();
   }
 }
