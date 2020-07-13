@@ -26,7 +26,7 @@ export class GameStart {
     setTimeout(() => {
       DOMelements.gameBoard.lastChild.remove();
       DOMelements.gameBoard.style.display = "block";
-      gameControler.gameProperties();
+      gameControler.gameSettings();
     }, 5000);
   }
 }

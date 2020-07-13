@@ -11,6 +11,7 @@ export class GameControler {
     this.frequency = null;
     this.target = null;
     this.isGameActive = false;
+    this.missesLimit = 3;
 
     this.gameCancel();
   }
@@ -22,7 +23,7 @@ export class GameControler {
     };
   }
 
-  gameTime() {
+  gameTimer() {
     let seconds = 0;
     let minutes = 0;
     const timer = setInterval(() => {
@@ -42,7 +43,7 @@ export class GameControler {
     }, 1000);
   }
 
-  gameProperties() {
+  gameSettings() {
     switch (state.level) {
       case "easy":
         this.frequency = 2000;
@@ -56,7 +57,7 @@ export class GameControler {
     }
 
     this.isGameActive = true;
-    this.gameTime();
+    this.gameTimer();
     this.targetCreate();
   }
 
@@ -78,8 +79,11 @@ export class GameControler {
     const gameBoardWidth = DOMelements.gameBoard.clientWidth;
     const gameBoardHeight = DOMelements.gameBoard.clientHeight;
 
+    const targetWidth = 25;
+    const targetHeight = 25;
+
     const interval = setInterval(() => {
-      if (state.misses == 3 || this.isGameActive == false) {
+      if (state.misses == this.missesLimit || this.isGameActive == false) {
         this.isGameActive = false;
         clearInterval(interval);
         this.targetRemove();
@@ -87,8 +91,12 @@ export class GameControler {
       } else {
         this.targetRemove();
 
-        const offsetX = Math.floor(Math.random() * (gameBoardWidth - 25));
-        const offsetY = Math.floor(Math.random() * (gameBoardHeight - 25));
+        const offsetX = Math.floor(
+          Math.random() * (gameBoardWidth - targetWidth)
+        );
+        const offsetY = Math.floor(
+          Math.random() * (gameBoardHeight - targetHeight)
+        );
 
         const target = document.createElement("div");
         target.classList.add("target");
