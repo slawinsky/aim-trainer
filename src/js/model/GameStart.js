@@ -1,14 +1,11 @@
 import { DOMelements } from "../base";
 import { GameControler } from "./GameControler";
 
-import { state } from "./../state";
-
 const gameControler = new GameControler();
 
 export class GameStart {
   constructor() {
     this.counter = 3;
-    this.message = "start!";
   }
 
   gameCountdown() {
@@ -17,8 +14,9 @@ export class GameStart {
       if (this.counter !== 0) {
         this.counter--;
       } else {
-        DOMelements.gameBoard.innerHTML = `<p class="counter">${this.message}</p>`;
+        DOMelements.gameBoard.innerHTML = `<p class="counter">start!</p>`;
         clearInterval(interval);
+        this.counter = 3;
       }
     }, 1000);
   }

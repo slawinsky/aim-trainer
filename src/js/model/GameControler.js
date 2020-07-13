@@ -11,12 +11,23 @@ export class GameControler {
     this.frequency = null;
     this.target = null;
     this.isGameActive = false;
+
+    this.gameCancel();
+  }
+
+  gameCancel() {
+    DOMelements.cancelBtn.onclick = () => {
+      this.isGameActive = false;
+      console.log(this.isGameActive);
+    };
   }
 
   gameTime() {
     let seconds = 0;
     let minutes = 0;
     const timer = setInterval(() => {
+      !this.isGameActive && clearInterval(timer);
+
       if (seconds < 59) {
         seconds++;
       } else if (seconds == 59) {
@@ -27,7 +38,6 @@ export class GameControler {
       state.time = `${minutes < 10 ? `0${minutes}` : minutes}:${
         seconds < 10 ? `0${seconds}` : seconds
       }`;
-      !this.isGameActive && clearInterval(timer);
       timeUpdate();
     }, 1000);
   }
@@ -45,6 +55,7 @@ export class GameControler {
         break;
     }
 
+    this.isGameActive = true;
     this.gameTime();
     this.targetCreate();
   }
@@ -68,7 +79,7 @@ export class GameControler {
     const gameBoardHeight = DOMelements.gameBoard.clientHeight;
 
     const interval = setInterval(() => {
-      if (state.misses == 3) {
+      if (state.misses == 3 || this.isGameActive == false) {
         this.isGameActive = false;
         clearInterval(interval);
         this.targetRemove();

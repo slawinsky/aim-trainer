@@ -1,6 +1,7 @@
 export const DOMelements = {
   playBtn: document.querySelector(".btn-play"),
   resetBtn: document.querySelector(".btn-reset"),
+  cancelBtn: document.querySelector(".btn-cancel"),
   container: document.querySelector(".container"),
   levelSelect: document.querySelector(".level-select"),
   levelBtn: [...document.querySelectorAll(".btn-level")],
